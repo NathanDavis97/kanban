@@ -1,6 +1,6 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import BaseController from '../utils/BaseController'
-import boardsService from '../services/BoardsService'
+import { boardsService } from '../services/BoardsService.js'
 
 export class BoardsController extends BaseController {
   constructor() {

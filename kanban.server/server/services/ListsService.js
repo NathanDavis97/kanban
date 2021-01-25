@@ -1,0 +1,30 @@
+import { dbContext } from '../db/DbContext'
+import { BadRequest } from '../utils/Errors'
+
+class ListsService {
+  async find(query = {}) {
+    const lists = await dbContext.Lists.find(query)
+    return lists
+  }
+
+  async findById(id) {
+    const list = await dbContext.Lists.findById(id)
+    if (!list) {
+      throw new BadRequest('invalid Id')
+    }
+    return list
+  }
+
+  async create(title) {
+    return await dbContext.Lists.create(title)
+  }
+
+  async delete(id, userId) {
+    const list = await dbContext.Lists.findOneAndDelete({ _id: id, creatorId: userId })
+    if (!list) {
+      throw new BadRequest('You are not the owner, or this is not a valid list')
+    }
+    return 'delorted'
+  }
+}
+export const listsService = new ListsService()
