@@ -1,0 +1,67 @@
+<template>
+  <div class="boardspage container-fluid">
+    <div class="row">
+      <div class="input-group mb-3">
+        <form @submit.prevent="create">
+          <input type="text"
+                 v-model="state.newBoard.title"
+                 class="form-control"
+                 placeholder="New Board Title"
+                 aria-label="Recipient's username"
+                 aria-describedby="button-addon2"
+          >
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+            Add
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <board-component v-for="board in state.boards" :key="board._id" :board-prop="board" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { reactive, computed, onMounted } from 'vue'
+import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
+import { boardsService } from '../services/BoardsService'
+import BoardComponent from '../components/BoardComponent.vue'
+export default {
+  name: 'Boardspage',
+  setup() {
+    const state = reactive({
+      boards: computed(() => AppState.boards),
+      user: computed(() => AppState.user),
+      newBoard: {}
+    })
+    onMounted(async() => {
+      try {
+        await boardsService.getAllBoards()
+      } catch (error) {
+        logger.error(error)
+      }
+    })
+    return {
+      state,
+      async create(e) {
+        try {
+          await boardsService.create(state.newBoard)
+          logger.log(state.boards)
+        } catch (error) {
+
+        }
+      }
+    }
+  },
+  components: { BoardComponent }
+}
+</script>
+
+<style
+    BoardComponent lang="scss" scoped>
+
+</style>
