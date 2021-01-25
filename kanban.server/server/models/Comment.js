@@ -10,11 +10,11 @@ const Comment = new Schema(
     taskId: { type: String }
   }, { timestamps: true, toJSON: { virtuals: true } }
 )
-Comment.virtual('creator', {
-  localfield: 'creatorId',
-  ref: 'Account',
-  foreignField: '_id',
-  justOne: true
-})
+// Comment.virtual('creator', {
+//   localfield: 'creatorId',
+//   ref: 'Account',
+//   foreignField: '_id',
+//   justOne: true
+// })
 
 export default Comment
