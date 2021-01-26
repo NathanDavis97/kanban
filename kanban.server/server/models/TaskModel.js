@@ -7,7 +7,7 @@ const Task = new Schema(
       type: String, required: true
     },
     creatorId: { type: String },
-    listId: { type: String }
+    listId: { type: String, required: true }
   }
 )
 export default Task

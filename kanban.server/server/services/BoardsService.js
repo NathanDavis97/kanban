@@ -3,7 +3,7 @@ import { BadRequest } from '../utils/Errors'
 
 class BoardsService {
   async find(query = {}) {
-    const boards = await dbContext.Boards.find(query)
+    const boards = await dbContext.Boards.find(query).populate('creator')
     return boards
   }
 
@@ -15,8 +15,8 @@ class BoardsService {
     return board
   }
 
-  async create(title) {
-    return await dbContext.Boards.create(title)
+  async create(data) {
+    return await dbContext.Boards.create(data)
   }
 
   async delete(id, userId) {

@@ -2,10 +2,15 @@
   <div class="board">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">
-          {{ boardProp.title }}
-        </h4>
-        <p></p>
+        <router-link :to="{ name: 'ActiveBoard', params: {id: boardProp.id}}">
+          <h4 class="card-title">
+            {{ boardProp.title }}
+          </h4>
+        </router-link>
+        <p>{{ boardProp.id }}</p>
+        <button class="btn btn-danger" @click="remove">
+          Kill..me
+        </button>
       </div>
     </div>
   </div>
@@ -14,6 +19,8 @@
 <script>
 import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
+import { boardsService } from '../services/BoardsService'
+import { logger } from '../utils/Logger'
 export default {
   name: 'Board',
   props: {
@@ -23,8 +30,16 @@ export default {
     const state = reactive({
       account: computed(() => AppState.account)
     })
-    return { state }
-    // NOTE working on deleting boards
+    return {
+      state,
+      remove() {
+        try {
+          boardsService.delete(props.boardProp.id)
+        } catch (error) {
+          logger.error(error)
+        }
+      }
+    }
   },
   components: {}
 }

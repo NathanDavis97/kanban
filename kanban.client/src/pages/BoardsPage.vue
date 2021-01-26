@@ -36,6 +36,7 @@ export default {
     const state = reactive({
       boards: computed(() => AppState.boards),
       user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
       newBoard: {}
     })
     onMounted(async() => {
@@ -47,9 +48,9 @@ export default {
     })
     return {
       state,
-      async create(e) {
+      async create() {
         try {
-          await boardsService.create(state.newBoard)
+          await boardsService.create(state.newBoard, state.account.id)
           logger.log(state.boards)
         } catch (error) {
 

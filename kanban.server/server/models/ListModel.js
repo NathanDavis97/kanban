@@ -7,7 +7,7 @@ const List = new Schema(
       type: String, required: true
     },
     creatorId: { type: String },
-    boardId: { type: String }
+    boardId: { type: String, required: true }
   }
 )
 export default List
