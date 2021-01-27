@@ -7,7 +7,11 @@ const Task = new Schema(
       type: String, required: true
     },
     creatorId: { type: String },
-    listId: { type: String, required: true }
+    listId: {
+      type: String,
+      ref: 'List',
+      required: true
+    }
   }
 )
 export default Task

@@ -6,8 +6,15 @@ const List = new Schema(
     title: {
       type: String, required: true
     },
+    tasks: { type: Array, ref: 'Task', default: [] },
     creatorId: { type: String },
-    boardId: { type: String, required: true }
+    boardId: { type: String, ref: 'Board', required: true }
   }
 )
+List.virtual('creator', {
+  localField: 'creatorId',
+  ref: 'Account',
+  foreignField: '_id',
+  justOne: true
+})
 export default List

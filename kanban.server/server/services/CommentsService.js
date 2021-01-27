@@ -3,7 +3,7 @@ import { BadRequest } from '../utils/Errors'
 
 class CommentsService {
   async find(query = {}) {
-    const comments = await dbContext.Comments.find(query)
+    const comments = await dbContext.Comments.find(query).populate('creator')
     return comments
   }
 
@@ -19,8 +19,8 @@ class CommentsService {
     return await dbContext.Comments.create(body)
   }
 
-  async delete(id, userId) {
-    const comment = await dbContext.Comments.findOneAndDelete({ _id: id, creatorId: userId })
+  async delete(id) {
+    const comment = await dbContext.Comments.findOneAndDelete({ _id: id })
     if (!comment) {
       throw new BadRequest('You are not the owner, or this is not a valid comment')
     }

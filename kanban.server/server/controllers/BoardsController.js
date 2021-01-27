@@ -7,12 +7,12 @@ export class BoardsController extends BaseController {
   constructor() {
     super('api/boards')
     this.router
-      .delete('/:id', this.delete)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/lists', this.getAllLists)
       .post('', this.create)
+      .delete('/:id', this.delete)
   }
 
   async getAll(req, res, next) {
@@ -55,7 +55,7 @@ export class BoardsController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      await boardsService.delete(req.params.id)
+      await boardsService.delete(req)
       res.send('deleted')
     } catch (error) {
       next(error)

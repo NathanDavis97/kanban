@@ -1,22 +1,22 @@
 <template>
-  <div class="activeBoard contaimer-fluid">
-    <!-- {{ board.title }} -->
-    <div class="input-group mb-3">
-      <form @submit.prevent="create">
-        <input type="text"
-               v-model="state.newList.title"
-               class="form-control"
-               placeholder="New List Title"
-               aria-label="Recipient's username"
-               aria-describedby="button-addon2"
-        >
-        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
-          Add
-        </button>
-      </form>
-    </div>
-    <div class="row ">
-      <ListComponent v-for="list in state.lists" :key="list.id" :list-prop="list" />
+  <div class="container-fluid">
+    <div class=" col-12 activeBoard ">
+      {{ state.board.title }}
+      <div class="input-group mb-3">
+        <form @submit.prevent="create">
+          <input type="text"
+                 v-model="state.newList.title"
+                 class="form-control"
+                 placeholder="New List Title"
+          >
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+            Add
+          </button>
+        </form>
+      </div>
+      <div class="row ">
+        <ListComponent v-for="list in state.lists" :key="list.id" :list-prop="list" />
+      </div>
     </div>
   </div>
 </template>
@@ -48,7 +48,7 @@ export default {
       try {
         await boardsService.getOneBoard(route.params.id)
       } catch (error) {
-
+        logger.error(error)
       }
       try {
         await listsService.getAllLists(state.board.id)

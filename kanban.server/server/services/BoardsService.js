@@ -19,8 +19,8 @@ class BoardsService {
     return await dbContext.Boards.create(data)
   }
 
-  async delete(id, userId) {
-    const board = await dbContext.Boards.findOneAndDelete({ _id: id, creatorId: userId })
+  async delete(req) {
+    const board = await dbContext.Boards.findOneAndDelete({ _id: req.params.id, creatorId: req.userInfo.id })
     if (!board) {
       throw new BadRequest('You are not the owner, or this is not a valid board')
     }

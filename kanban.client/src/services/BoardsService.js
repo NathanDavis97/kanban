@@ -22,7 +22,7 @@ class BoardsService {
 
     const res = await api.post('api/boards', newBoard)
     logger.log(res.data)
-    AppState.boards = [...AppState.boards, newBoard]
+    AppState.boards = [...AppState.boards, res.data]
   }
 
   async delete(id) {

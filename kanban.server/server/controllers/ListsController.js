@@ -18,6 +18,7 @@ export class ListsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
+      req.query.user = req.params.user
       const data = await listsService.find(req.query)
       res.send(data)
     } catch (error) {
@@ -45,6 +46,8 @@ export class ListsController extends BaseController {
 
   async create(req, res, next) {
     try {
+      req.body.user = req.params.user
+
       const data = await listsService.create(req.body)
       res.send(data)
     } catch (error) {
@@ -54,7 +57,7 @@ export class ListsController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      await listsService.delete(req.params.id)
+      await listsService.delete(req)
       res.send('deleted')
     } catch (error) {
       next(error)
