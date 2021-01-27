@@ -8,11 +8,7 @@ class ListsService {
   async getAllLists(id) {
     const res = await api.get('api/boards/' + id + '/lists')
     console.log(res.data)
-    for (let i = 0; i < res.data.length; i++) {
-      AppState.lists[res.data[i]._id] = [res.data[0]]
-    }
-    return AppState.lists
-    // AppState.lists = res.data
+    AppState.lists = res.data
   }
 
   async create(newList, id) {

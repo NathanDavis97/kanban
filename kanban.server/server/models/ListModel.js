@@ -6,7 +6,6 @@ const List = new Schema(
     title: {
       type: String, required: true
     },
-    tasks: { type: Array, ref: 'Task', default: [] },
     creatorId: { type: String },
     boardId: { type: String, ref: 'Board', required: true }
   }
