@@ -51,6 +51,16 @@ export class TasksController extends BaseController {
     }
   }
 
+  async edit(req, res, next) {
+    try {
+      req.body.id = req.params.id
+      const data = await tasksService.edit(req.body)
+      res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   async delete(req, res, next) {
     try {
       await tasksService.delete(req.params.id)

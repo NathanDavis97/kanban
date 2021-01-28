@@ -20,16 +20,16 @@ class TasksService {
 
     const res = await api.post('api/tasks', newTask)
     logger.log(res.data)
-    AppState.tasks = [...AppState.tasks, res.data]
+    this.getAllTasks(id)
   }
 
-  async delete(id) {
+  async delete(id, listId) {
     // AppState.boards = []
     const res = await api.delete('api' + task + id)
     logger.log(res.data)
     // const index = AppState.boards.findIndexOf(b => b.id === id)
     // AppState.boards.splice(index, 1)
-    this.getAllTasks()
+    this.getAllTasks(listId)
   }
 }
 

@@ -19,6 +19,10 @@ class TasksService {
     return await dbContext.Tasks.create(title)
   }
 
+  async edit(update) {
+    return await dbContext.Tasks.findOneAndUpdate(update.id)
+  }
+
   async delete(id) {
     const task = await dbContext.Tasks.findOneAndDelete({ _id: id })
     if (!task) {

@@ -2,7 +2,21 @@
   <div class="TaskComponent
   "
   >
-    {{ taskProp.listId }}
+    {{ taskProp.title }} <button class="btn btn-danger col" @click="remove">
+      Kill..me
+    </button>
+
+    <form @submit.prevent="create">
+      <input type="text"
+             v-model="state.newComment.body"
+             class="form-control"
+             placeholder="New comment Title"
+      >
+      <button class="btn btn-outline-primary" type="submit" id="button-addon2">
+        Add
+      </button>
+    </form>
+    <CommentComponent v-for="comment in state.comments" :key="comment._id" :comment-prop="comment" />
   </div>
 </template>
 
@@ -23,6 +37,7 @@ export default {
       account: computed(() => AppState.account),
       user: computed(() => AppState.user),
       lists: computed(() => AppState.lists),
+      comments: computed(() => AppState.comments[props.taskProp._id]),
       newComment: {}
     })
     onMounted(async() => {
@@ -55,5 +70,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.comm{
+  height: 20px;
+}
 </style>

@@ -7,8 +7,8 @@ class CommentsService {
   // NOTE match comments and comment service to this service
   async getAllComments(id) {
     const res = await api.get('api/tasks/' + id + '/comments')
-    // console.log(res.data)
-    AppState.comments = res.data
+    console.log(res.data, id, 'pretty please')
+    AppState.comments[id] = res.data
   }
 
   async create(newComment, id) {
@@ -19,13 +19,13 @@ class CommentsService {
 
     const res = await api.post('api/comments', newComment)
     logger.log(res.data)
-    AppState.comments = [...AppState.comments, res.data]
+    this.getAllComments(id)
   }
 
-  async delete(id) {
+  async delete(id, taskId) {
     const res = await api.delete('api' + comment + id)
     logger.log(res.data)
-    this.getAllComments()
+    this.getAllComments(taskId)
   }
 }
 
