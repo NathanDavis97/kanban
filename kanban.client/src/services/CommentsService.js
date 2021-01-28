@@ -7,7 +7,7 @@ class CommentsService {
   // NOTE match comments and comment service to this service
   async getAllComments(id) {
     const res = await api.get('api/tasks/' + id + '/comments')
-    console.log(res.data)
+    // console.log(res.data)
     AppState.comments = res.data
   }
 

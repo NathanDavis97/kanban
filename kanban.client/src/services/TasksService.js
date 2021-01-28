@@ -8,7 +8,7 @@ class TasksService {
   async getAllTasks(id) {
     const res = await api.get('api/lists/' + id + '/tasks')
     console.log(res.data)
-    AppState.tasks = res.data
+    AppState.tasks[id] = res.data
     // push tasks into list at id  of this
   }
 

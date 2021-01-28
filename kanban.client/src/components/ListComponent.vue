@@ -55,7 +55,7 @@ export default {
     const state = reactive({
       account: computed(() => AppState.account),
       user: computed(() => AppState.user),
-      tasks: computed(() => AppState.tasks),
+      tasks: computed(() => AppState.tasks[props.listProp._id]),
       board: computed(() => AppState.activeBoard),
       newTask: {}
 
