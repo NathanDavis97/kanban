@@ -3,7 +3,7 @@ import { BadRequest } from '../utils/Errors'
 
 class ListsService {
   async find(query = {}) {
-    const lists = await dbContext.Lists.find(query)
+    const lists = await dbContext.Lists.find(query).populate('creator')
     return lists
   }
 
@@ -19,8 +19,8 @@ class ListsService {
     return await dbContext.Lists.create(title)
   }
 
-  async delete(id, userId) {
-    const list = await dbContext.Lists.findOneAndDelete({ _id: id, creatorId: userId })
+  async delete(req) {
+    const list = await dbContext.Lists.findOneAndDelete({ _id: req.params.id, creatorId: req.userInfo.id })
     if (!list) {
       throw new BadRequest('You are not the owner, or this is not a valid list')
     }

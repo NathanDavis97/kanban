@@ -3,7 +3,7 @@ import { BadRequest } from '../utils/Errors'
 
 class TasksService {
   async find(query = {}) {
-    const tasks = await dbContext.Tasks.find(query)
+    const tasks = await dbContext.Tasks.find(query).populate('creator')
     return tasks
   }
 
@@ -19,8 +19,12 @@ class TasksService {
     return await dbContext.Tasks.create(title)
   }
 
-  async delete(id, userId) {
-    const task = await dbContext.Tasks.findOneAndDelete({ _id: id, creatorId: userId })
+  async edit(update) {
+    return await dbContext.Tasks.findOneAndUpdate(update.id)
+  }
+
+  async delete(id) {
+    const task = await dbContext.Tasks.findOneAndDelete({ _id: id })
     if (!task) {
       throw new BadRequest('You are not the owner, or this is not a valid task')
     }
