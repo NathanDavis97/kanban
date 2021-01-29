@@ -28,6 +28,7 @@ export class ListsController extends BaseController {
 
   async getAllTasks(req, res, next) {
     try {
+      req.query.user = req.params.user
       const data = await tasksService.find({ listId: req.params.id })
       res.send(data)
     } catch (error) {
@@ -37,6 +38,7 @@ export class ListsController extends BaseController {
 
   async getById(req, res, next) {
     try {
+      req.query.user = req.params.user
       const data = await listsService.findById(req.params.id)
       res.send(data)
     } catch (error) {

@@ -27,6 +27,8 @@ export class BoardsController extends BaseController {
 
   async getById(req, res, next) {
     try {
+      req.query.user = req.params.user
+
       const data = await boardsService.findById(req.params.id)
       res.send(data)
     } catch (error) {

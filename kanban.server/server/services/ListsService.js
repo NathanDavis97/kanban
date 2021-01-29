@@ -8,7 +8,7 @@ class ListsService {
   }
 
   async findById(id) {
-    const list = await dbContext.Lists.findById(id)
+    const list = await dbContext.Lists.findById(id).populate('creator')
     if (!list) {
       throw new BadRequest('invalid Id')
     }

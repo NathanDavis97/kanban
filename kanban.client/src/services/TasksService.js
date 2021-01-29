@@ -12,6 +12,12 @@ class TasksService {
     // push tasks into list at id  of this
   }
 
+  async getOneTask(id) {
+    const res = await api.get('api/tasks/' + id)
+    console.log(res.data, 'one task')
+    AppState.activeTask = res.data
+  }
+
   async create(newTask, id) {
     console.log(id)
     newTask.creatorId = AppState.account.id
@@ -21,6 +27,16 @@ class TasksService {
     const res = await api.post('api/tasks', newTask)
     logger.log(res.data)
     this.getAllTasks(id)
+  }
+
+  async moveTask(newListId, activeTask) {
+    const oldListId = activeTask.listId
+    console.log(activeTask.listId)
+    activeTask.listId = newListId
+    const res = await api.put('api/tasks/' + activeTask._id, activeTask)
+    this.getAllTasks(newListId)
+    this.getAllTasks(oldListId)
+    console.log(res)
   }
 
   async delete(id, listId) {

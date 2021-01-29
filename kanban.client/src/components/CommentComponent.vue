@@ -1,11 +1,16 @@
 <template>
-  <div class="CommentComponent
-  "
-  >
-    <button class="btn btn-danger col" @click="remove">
-      Kill..me please
-    </button>
-    {{ commentProp.body }}
+  <div class="CommentComponent my-2 rounded ">
+    <div class="row bg ">
+      <i class="fa btn fa-times-circle text-danger col-2" aria-hidden="true" @click="remove" v-if="state.account.id == commentProp.creatorId"></i>
+      <div class="font-weight-bold ">
+        {{ commentProp.creator.name }}
+        <div class="font-weight-normal limit">
+          {{ commentProp.body }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+    </div>
   </div>
 </template>
 
@@ -44,5 +49,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.bg{
+  background-color: rgb(202, 197, 197);
+  border-radius: 25px;
+}
+.limit{
+    width: 200px;
+    word-wrap: break-word;
+}
 </style>
