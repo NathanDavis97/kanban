@@ -8,7 +8,7 @@ class TasksService {
   }
 
   async findById(id) {
-    const task = await dbContext.Tasks.findById(id)
+    const task = await dbContext.Tasks.findById(id).populate('creator')
     if (!task) {
       throw new BadRequest('invalid Id')
     }
@@ -20,7 +20,7 @@ class TasksService {
   }
 
   async edit(update) {
-    return await dbContext.Tasks.findOneAndUpdate(update.id)
+    return await dbContext.Tasks.findOneAndUpdate({ _id: update.id, creatorId: update.creatorId }, update, { new: true }).populate('creator')
   }
 
   async delete(id) {

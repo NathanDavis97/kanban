@@ -1,23 +1,24 @@
 <template>
   <div class="container-fluid">
     <div class=" col-12 activeBoard ">
-      {{ state.board.title }}
-      <div class="input-group mb-3">
-        <form @submit.prevent="create">
+      <h3>{{ state.board.title }}</h3>
+      <div class="input-group row mb-3">
+        <form @submit.prevent="create" class="col-6 d-flex flex-row">
           <input type="text"
                  v-model="state.newList.title"
-                 class="form-control"
+                 class="form-control shadow"
                  placeholder="New List Title"
           >
-          <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
-            Add
+          <button class="btn btn-success shadow" type="submit" id="button-addon2">
+            <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
         </form>
       </div>
-      <div class="row ">
+      <div class="row  ">
         <ListComponent v-for="list in state.lists" :key="list.id" :list-prop="list" />
       </div>
     </div>
+    <QuickModal :lists-prop="state.lists" />
   </div>
 </template>
 
@@ -42,6 +43,7 @@ export default {
       account: computed(() => AppState.account),
       board: computed(() => AppState.activeBoard
       ),
+      activeTask: computed(() => AppState.activeTask),
       newList: {}
     })
     onMounted(async() => {
@@ -61,6 +63,7 @@ export default {
       async create() {
         try {
           await listsService.create(state.newList, state.board.id)
+          state.newList.title = ''
         } catch (error) {
 
         }
@@ -72,5 +75,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.overflow{ max-width: 1000px;
+    overflow-x: scroll;
 
+}
 </style>

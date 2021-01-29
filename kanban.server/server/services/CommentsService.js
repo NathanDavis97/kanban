@@ -8,7 +8,7 @@ class CommentsService {
   }
 
   async findById(id) {
-    const comment = await dbContext.Comments.findById(id)
+    const comment = await dbContext.Comments.findById(id).populate('creator')
     if (!comment) {
       throw new BadRequest('invalid Id')
     }

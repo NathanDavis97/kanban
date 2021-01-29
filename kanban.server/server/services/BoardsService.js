@@ -8,7 +8,7 @@ class BoardsService {
   }
 
   async findById(id) {
-    const board = await dbContext.Boards.findById(id)
+    const board = await dbContext.Boards.findById(id).populate('creator')
     if (!board) {
       throw new BadRequest('invalid Id')
     }

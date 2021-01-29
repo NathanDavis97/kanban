@@ -11,6 +11,7 @@ export class TasksController extends BaseController {
       .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/comments', this.getAllComments)
+      .put('/:id', this.edit)
       .post('', this.create)
       .delete('/:id', this.delete)
   }
@@ -26,6 +27,7 @@ export class TasksController extends BaseController {
 
   async getAllComments(req, res, next) {
     try {
+      req.query.user = req.params.user
       const data = await commentsService.find({ taskId: req.params.id })
       res.send(data)
     } catch (error) {
@@ -35,6 +37,7 @@ export class TasksController extends BaseController {
 
   async getById(req, res, next) {
     try {
+      req.query.user = req.params.user
       const data = await tasksService.findById(req.params.id)
       res.send(data)
     } catch (error) {
@@ -54,6 +57,7 @@ export class TasksController extends BaseController {
   async edit(req, res, next) {
     try {
       req.body.id = req.params.id
+      req.body.creatorId = req.userInfo.id
       const data = await tasksService.edit(req.body)
       res.send(data)
     } catch (error) {

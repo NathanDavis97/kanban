@@ -1,22 +1,42 @@
 <template>
-  <div class="TaskComponent
-  "
-  >
-    {{ taskProp.title }} <button class="btn btn-danger col" @click="remove">
-      Kill..me
-    </button>
-
-    <form @submit.prevent="create">
-      <input type="text"
-             v-model="state.newComment.body"
-             class="form-control"
-             placeholder="New comment Title"
-      >
-      <button class="btn btn-outline-primary" type="submit" id="button-addon2">
-        Add
-      </button>
-    </form>
-    <CommentComponent v-for="comment in state.comments" :key="comment._id" :comment-prop="comment" />
+  <div class="TaskComponent my-3">
+    <div class="card">
+      <div class="card-header  ">
+        <div class="row">
+          <h5>{{ taskProp.title }}</h5>
+        </div>
+        <div class="row justify-content-between">
+          <button class="btn btn-danger col-2" @click="remove" v-if="state.account.id == taskProp.creatorId">
+            <i class="fa fa-sm fa-times-circle" aria-hidden="true"></i>
+          </button>
+          <button @click="getActive"
+                  type="button"
+                  class="btn btn-warning col-5"
+                  data-toggle="modal"
+                  data-target="#modelId"
+                  v-if="state.account.id == taskProp.creatorId"
+          >
+            <small>Move Task</small>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <CommentComponent v-for="comment in state.comments" :key="comment._id" :comment-prop="comment" />
+      </div>
+      <div class="card-footer">
+        <form @submit.prevent="create">
+          <input type="text"
+                 v-model="state.newComment.body"
+                 class="form-control"
+                 placeholder="New comment Title"
+                 id="commentForm"
+          >
+          <button class="btn btn-success" type="submit" id="button-addon2">
+            Add
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -52,6 +72,14 @@ export default {
       async create() {
         try {
           await commentsService.create(state.newComment, props.taskProp._id)
+          state.newComment.body = ''
+        } catch (error) {
+          logger.error(error)
+        }
+      },
+      async getActive() {
+        try {
+          await tasksService.getOneTask(props.taskProp._id)
         } catch (error) {
           logger.error(error)
         }
@@ -72,5 +100,8 @@ export default {
 <style lang="scss" scoped>
 .comm{
   height: 20px;
+}
+.card-header{
+  margin: 0;
 }
 </style>
