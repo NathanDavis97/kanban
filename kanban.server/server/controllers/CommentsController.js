@@ -15,6 +15,7 @@ export class CommentsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
+      req.query.user = req.params.user
       const data = await commentsService.find(req.query)
       res.send(data)
     } catch (error) {
@@ -24,6 +25,7 @@ export class CommentsController extends BaseController {
 
   async getById(req, res, next) {
     try {
+      req.query.user = req.params.user
       const data = await commentsService.findById(req.params.id)
       res.send(data)
     } catch (error) {
@@ -33,6 +35,7 @@ export class CommentsController extends BaseController {
 
   async create(req, res, next) {
     try {
+      req.body.user = req.params.user
       const data = await commentsService.create(req.body)
       res.send(data)
     } catch (error) {
@@ -43,7 +46,7 @@ export class CommentsController extends BaseController {
   async delete(req, res, next) {
     try {
       await commentsService.delete(req.params.id)
-      res.send('deleted')
+      res.send('Deleted')
     } catch (error) {
       next(error)
     }

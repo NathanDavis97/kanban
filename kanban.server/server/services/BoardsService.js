@@ -8,9 +8,9 @@ class BoardsService {
   }
 
   async findById(id) {
-    const board = await dbContext.Boards.findById(id)
+    const board = await dbContext.Boards.findById(id).populate('creator')
     if (!board) {
-      throw new BadRequest('invalid Id')
+      throw new BadRequest('Invalid Id')
     }
     return board
   }
@@ -24,7 +24,7 @@ class BoardsService {
     if (!board) {
       throw new BadRequest('You are not the owner, or this is not a valid board')
     }
-    return 'delorted'
+    return 'Deleted'
   }
 }
 export const boardsService = new BoardsService()

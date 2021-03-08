@@ -27,6 +27,7 @@ export class BoardsController extends BaseController {
 
   async getById(req, res, next) {
     try {
+      req.query.user = req.params.user
       const data = await boardsService.findById(req.params.id)
       res.send(data)
     } catch (error) {
@@ -56,7 +57,7 @@ export class BoardsController extends BaseController {
   async delete(req, res, next) {
     try {
       await boardsService.delete(req)
-      res.send('deleted')
+      res.send('Deleted')
     } catch (error) {
       next(error)
     }
