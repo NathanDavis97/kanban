@@ -23,8 +23,6 @@ export default {
     return {
       async moveTask(listId) {
         try {
-          debugger
-
           await tasksService.moveTask(listId, state.activeTask)
         } catch (error) {
           logger.error(error)

@@ -10,7 +10,7 @@ class CommentsService {
   async findById(id) {
     const comment = await dbContext.Comments.findById(id).populate('creator')
     if (!comment) {
-      throw new BadRequest('invalid Id')
+      throw new BadRequest('Invalid Id')
     }
     return comment
   }
@@ -24,7 +24,7 @@ class CommentsService {
     if (!comment) {
       throw new BadRequest('You are not the owner, or this is not a valid comment')
     }
-    return 'delorted'
+    return 'Deleted'
   }
 }
 export const commentsService = new CommentsService()

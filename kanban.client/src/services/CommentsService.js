@@ -4,18 +4,16 @@ import { api } from './AxiosService'
 
 const comment = '/comments/'
 class CommentsService {
-  // NOTE match comments and comment service to this service
   async getAllComments(id) {
     const res = await api.get('api/tasks/' + id + '/comments')
-    console.log(res.data, id, 'pretty please')
+    logger.log(res.data, id)
     AppState.comments[id] = res.data
   }
 
   async create(newComment, id) {
-    console.log(id)
+    logger.log(id)
     newComment.creatorId = AppState.account.id
     newComment.taskId = id
-    // console.log(newComment.user)
 
     const res = await api.post('api/comments', newComment)
     logger.log(res.data)
@@ -30,5 +28,3 @@ class CommentsService {
 }
 
 export const commentsService = new CommentsService()
-
-// NOTE  Make front end of tasks and comments

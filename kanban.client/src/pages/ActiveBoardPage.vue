@@ -14,7 +14,7 @@
           </button>
         </form>
       </div>
-      <div class="row  ">
+      <div class="row">
         <ListComponent v-for="list in state.lists" :key="list.id" :list-prop="list" />
       </div>
     </div>

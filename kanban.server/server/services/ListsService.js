@@ -10,7 +10,7 @@ class ListsService {
   async findById(id) {
     const list = await dbContext.Lists.findById(id).populate('creator')
     if (!list) {
-      throw new BadRequest('invalid Id')
+      throw new BadRequest('Invalid Id')
     }
     return list
   }
@@ -24,7 +24,7 @@ class ListsService {
     if (!list) {
       throw new BadRequest('You are not the owner, or this is not a valid list')
     }
-    return 'delorted'
+    return 'Deleted'
   }
 }
 export const listsService = new ListsService()

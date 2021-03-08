@@ -10,7 +10,7 @@ class TasksService {
   async findById(id) {
     const task = await dbContext.Tasks.findById(id).populate('creator')
     if (!task) {
-      throw new BadRequest('invalid Id')
+      throw new BadRequest('Invalid Id')
     }
     return task
   }
@@ -28,7 +28,7 @@ class TasksService {
     if (!task) {
       throw new BadRequest('You are not the owner, or this is not a valid task')
     }
-    return 'delorted'
+    return 'Deleted'
   }
 }
 export const tasksService = new TasksService()

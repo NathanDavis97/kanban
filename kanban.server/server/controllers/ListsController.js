@@ -12,7 +12,6 @@ export class ListsController extends BaseController {
       .get('/:id', this.getById)
       .get('/:id/tasks', this.getAllTasks)
       .post('', this.create)
-
       .delete('/:id', this.delete)
   }
 
@@ -49,7 +48,6 @@ export class ListsController extends BaseController {
   async create(req, res, next) {
     try {
       req.body.user = req.params.user
-
       const data = await listsService.create(req.body)
       res.send(data)
     } catch (error) {
@@ -60,7 +58,7 @@ export class ListsController extends BaseController {
   async delete(req, res, next) {
     try {
       await listsService.delete(req)
-      res.send('deleted')
+      res.send('Deleted')
     } catch (error) {
       next(error)
     }

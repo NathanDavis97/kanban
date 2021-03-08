@@ -10,7 +10,7 @@
                  aria-label="Recipient's username"
                  aria-describedby="button-addon2"
           >
-          <button class="btn btn-success shadow" type="submit" id="button-addon2">
+          <button class="btn btn-outline-success shadow" type="submit" id="button-addon2">
             <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
         </form>
@@ -51,7 +51,7 @@ export default {
           await boardsService.create(state.newBoard, state.account.id)
           state.newBoard.title = ''
         } catch (error) {
-
+          logger.error(error)
         }
       }
     }

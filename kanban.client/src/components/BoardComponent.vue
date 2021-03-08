@@ -36,7 +36,7 @@ export default {
       remove() {
         try {
           boardsService.delete(props.boardProp.id)
-          console.log(props.boardProp.id)
+          logger.log(props.boardProp.id)
         } catch (error) {
           logger.error(error)
         }
