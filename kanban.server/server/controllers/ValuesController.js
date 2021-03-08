@@ -6,7 +6,6 @@ export class ValuesController extends BaseController {
     super('api/values')
     this.router
       .get('', this.getAll)
-      // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
   }
@@ -21,7 +20,6 @@ export class ValuesController extends BaseController {
 
   async create(req, res, next) {
     try {
-      // NOTE NEVER TRUST THE CLIENT TO ADD THE CREATOR ID
       req.body.creatorId = req.userInfo.id
       res.send(req.body)
     } catch (error) {

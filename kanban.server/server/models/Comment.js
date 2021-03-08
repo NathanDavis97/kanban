@@ -11,7 +11,7 @@ const Comment = new Schema(
   }, { timestamps: true, toJSON: { virtuals: true } }
 )
 Comment.virtual('creator', {
-  localfield: 'creatorId',
+  localField: 'creatorId',
   ref: 'Account',
   foreignField: '_id',
   justOne: true

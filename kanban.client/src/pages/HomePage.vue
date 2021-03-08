@@ -1,9 +1,10 @@
 <template>
   <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo">
-    <h1 class="my-5 bg-dark text-light p-3 rounded d-flex align-items-center">
-      <span class="mx-2 text-white">Vue 3 Starter</span>
-    </h1>
+    <h1>Welcome to KanBan</h1>
+    <p>Login and click below to get started!</p>
+    <router-link :to="{name: 'Boards'}">
+      <img class="rounded-lg " src="https://www.integrify.com/site/assets/files/2473/kanban-project-management.png" alt="">
+    </router-link>
   </div>
 </template>
 

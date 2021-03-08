@@ -1,6 +1,6 @@
 class EventEmitter {
   constructor() {
-    this._listeners = {};
+    this._listeners = {}
   }
 
   on(event: string | number, fn: function, thisContext: any = null): void { }
@@ -13,14 +13,15 @@ class EventEmitter {
 /**
  @type {AuthPlugin}
  */
-let instance: AuthPlugin;
+let instance: AuthPlugin
 
 class AuthPlugin extends EventEmitter {
   AUTH_EVENTS = {
-    LOADING: "LOADING",
-    LOADED: "LOADED",
-    AUTHENTICATED: "AUTHENTICATED"
+    LOADING: 'LOADING',
+    LOADED: 'LOADED',
+    AUTHENTICATED: 'AUTHENTICATED'
   }
+
   options: AuthServiceMethodOptions
   loading: boolean
   isAuthenticated: boolean
@@ -60,7 +61,7 @@ const Auth0Provider = {
  * @param {{ onRedirectCallback: () => void; domain: string, audience: string, clientId: string  }} options
  */
   initialize(options: { onRedirectCallback: () => void; domain: string; audience: string; clientId: string; }): AuthPlugin { return new AuthPlugin(options) },
-  async authGuard(to: RouterItem, from: RouterItem, next: () => Promise<void>): Promise<void> { },
+  async authGuard(to: RouterItem, from: RouterItem, next: () => Promise<void>): Promise<void> { }
 }
 
 interface RouterItem {
@@ -80,6 +81,3 @@ interface AuthServiceMethodOptions {
   connection?: string,
   [key: string]: any
 }
-
-
-
